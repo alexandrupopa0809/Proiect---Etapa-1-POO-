@@ -24,12 +24,13 @@ public class Hero {
         this.hp = 0;
         this.maxHp = 0;
         this.isAlive = true;
-        this.overtimeDamage = 0;
-        this.imobilized = 0;
         this.rowPos = rowPos;
         this.colPos = colPos;
+        this.moves = "";
         this.iterator = 0;
+        this.overtimeDamage = 0;
         this.damageOvertimeRounds = 0;
+        this.imobilized = 0;
     }
 
     public void getXpPoints(final int opponentLevel) {
@@ -77,7 +78,9 @@ public class Hero {
             this.hp -= overtimeDamage;
             damageOvertimeRounds--;
         }
-
+        if(this.hp <= 0) {
+            this.isAlive = false;
+        }
     }
 
     public void move() {
@@ -106,6 +109,7 @@ public class Hero {
             if(this.imobilized != 0) {
                 iterator--;
             }
+            takeOvertimeDamage();
         }
     }
 
@@ -131,6 +135,9 @@ public class Hero {
 
     public void getActiveDamage(final int activeDamage) {
         this.hp -= activeDamage;
+        if(this.hp <= 0) {
+            this.isAlive = false;
+        }
     }
 
     public void getOvertimeDamage(final int overtimeDamage) {

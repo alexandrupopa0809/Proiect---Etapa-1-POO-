@@ -58,21 +58,121 @@ public class Wizard extends Hero {
         }
         totalDeflectDamage = Math.round(totalDeflectDamage);
         pyroHero.getActiveDamage((int) Math.round(totalDeflectDamage + drainDamage));
+
     }
 
     @Override
     public void fightWith(Wizard wizardHero) {
+        float drainPercent = Constants.initialDrainPercent +
+                Constants.levelDrainPercent * this.level;
+        float wizardHp = (float) Math.min(Constants.wizardBaseHpCoef *
+                (float) wizardHero.maxHp, (float) wizardHero.hp);
 
+        float wizardHeroDamage = 0;
+
+        drainPercent *= Constants.wizardModifDrain;
+
+        float drainDamage = drainPercent * wizardHp;
+        if (Map.getInstance().map[rowPos][colPos] == 'D') {
+            drainDamage *= Constants.wizardMapModif;
+        }
+        wizardHero.getActiveDamage((int) Math.round(drainDamage));
     }
 
     @Override
     public void fightWith(Knight knightHero) {
+        float drainPercent = Constants.initialDrainPercent +
+                Constants.levelDrainPercent * this.level;
+        float wizardHp = (float) Math.min(Constants.wizardBaseHpCoef *
+                (float) knightHero.maxHp, (float) knightHero.hp);
 
+        float knightHeroDamage = 0;
+
+        drainPercent *= Constants.knightModifDrain;
+
+
+        float drainDamage = drainPercent * wizardHp;
+        if (Map.getInstance().map[rowPos][colPos] == 'D') {
+            drainDamage *= Constants.wizardMapModif;
+        }
+
+        float deflectPercent = Constants.initialDeflectPercent +
+                Constants.levelDeflectPercent * this.level;
+        if (deflectPercent > Constants.levelDeflectMaxPercent) {
+            deflectPercent = Constants.levelDeflectMaxPercent;
+        }
+        float hpLimit = Constants.knightHpLimitModif * (float) this.maxHp;
+
+        if(knightHero.level < Constants.knightMaxLevel) {
+            hpLimit += ((float) knightHero.level/ 100) * (float) this.maxHp;
+        }
+        else {
+            hpLimit += Constants.knightMaxHpDamageModif * (float) this.maxHp;
+        }
+        int isExecuted = 0;
+        if ((float) this.hp < hpLimit && this.hp > 0) {
+            knightHeroDamage = this.hp;
+            isExecuted = 1;
+        }
+        else {
+            knightHeroDamage = Constants.executeBaseDamage + Constants.executeLevelDamage * this.level;
+            knightHeroDamage = Constants.slamBaseDamage + Constants.slamLevelDamage;
+        }
+        if (Map.getInstance().map[knightHero.rowPos][knightHero.colPos] == 'L' && isExecuted == 0) {
+            knightHeroDamage *= Constants.knightMapModif;
+        }
+
+        deflectPercent *= Constants.knightModifDeflect;
+
+        float totalDeflectDamage = deflectPercent * knightHeroDamage;
+        if (Map.getInstance().map[rowPos][colPos] == 'D') {
+            totalDeflectDamage *= Constants.wizardMapModif;
+        }
+        totalDeflectDamage = Math.round(totalDeflectDamage);
+        knightHero.getActiveDamage((int) Math.round(totalDeflectDamage + drainDamage));
     }
 
     @Override
     public void fightWith(Rogue rogueHero) {
+        float drainPercent = Constants.initialDrainPercent +
+                Constants.levelDrainPercent * this.level;
+        float wizardHp = (float) Math.min(Constants.wizardBaseHpCoef *
+                (float) rogueHero.maxHp, (float) rogueHero.hp);
 
+        float rogueHeroDamage = 0;
+
+        drainPercent *= Constants.rogueModifDrain;
+
+
+        float drainDamage = drainPercent * wizardHp;
+        if (Map.getInstance().map[rowPos][colPos] == 'D') {
+            drainDamage *= Constants.wizardMapModif;
+        }
+
+        float deflectPercent = Constants.initialDeflectPercent +
+                Constants.levelDeflectPercent * this.level;
+        if (deflectPercent > Constants.levelDeflectMaxPercent) {
+            deflectPercent = Constants.levelDeflectMaxPercent;
+        }
+
+        rogueHeroDamage = Constants.backstabBaseDamage + Constants.backstabLevelDamage * rogueHero.level;
+        if (Map.getInstance().map[rogueHero.rowPos][rogueHero.colPos] == 'W' &&
+                ((rogueHero).backstabAttacks - 1) % 3 == 0 ) {
+            rogueHeroDamage *= Constants.backstabAmplifier;
+        }
+        rogueHeroDamage = Constants.paralysisBaseDamage + Constants.paralysisLevelDamage * rogueHero.level;
+        if (Map.getInstance().map[rogueHero.rowPos][rogueHero.colPos] == 'W') {
+            rogueHeroDamage *= Constants.rogueMapModif;
+        }
+
+        deflectPercent *= Constants.rogueModifDeflect;
+
+        float totalDeflectDamage = deflectPercent * rogueHeroDamage;
+        if (Map.getInstance().map[rowPos][colPos] == 'D') {
+            totalDeflectDamage *= Constants.wizardMapModif;
+        }
+        totalDeflectDamage = Math.round(totalDeflectDamage);
+        rogueHero.getActiveDamage((int) Math.round(totalDeflectDamage + drainDamage));
     }
 
     @Override

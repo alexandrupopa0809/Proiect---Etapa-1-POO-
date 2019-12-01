@@ -18,13 +18,12 @@ public class Round {
                     if ((heroes[i].rowPos == heroes[j].rowPos) &&
                             (heroes[i].colPos == heroes[j].colPos)) {
                         if (heroes[j] instanceof Rogue) {
-                            /*heroes[j].fight(heroes[i]);
-                            heroes[i].fight(heroes[j]);*/
                             heroes[i].fightBack(heroes[j]);
+                            heroes[j].fightBack(heroes[i]);
                         }
                         else {
-                            heroes[i].fight(heroes[j]);
-                            heroes[j].fight(heroes[i]);
+                            heroes[j].fightBack(heroes[i]);
+                            heroes[i].fightBack(heroes[j]);
                         }
                         if (heroes[i].isAlive && !heroes[j].isAlive) {
                             heroes[i].getXpPoints(heroes[j].level);
