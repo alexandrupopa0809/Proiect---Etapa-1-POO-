@@ -18,7 +18,7 @@ public class Hero {
     public int iterator;
     public int damageOvertimeRounds;
 
-    Hero(final int rowPos, final int colPos) {
+    public Hero(final int rowPos, final int colPos) {
         this.xp = 0;
         this.level = 0;
         this.hp = 0;
@@ -148,4 +148,5 @@ public class Hero {
 
     public void fight(final Hero otherHero) {
     }
+
 }

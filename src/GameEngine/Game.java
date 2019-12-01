@@ -1,7 +1,9 @@
 package GameEngine;
 
 import Heroes.*;
-import GameEngine.GameInput;
+import fileio.implementations.FileWriter;
+
+import java.io.IOException;
 
 public class Game {
 
@@ -14,8 +16,12 @@ public class Game {
             Round round = new Round();
             round.startRound(gameInput, heroes);
         }
-        for (int i = 0; i < gameInput.getmHeroesNumber(); i++) {
-                System.out.println(heroes[i].toString());
+    }
+
+    public void writeOutput(GameInput gameInput, Hero[] heroes, FileWriter fileWriter) throws IOException {
+        for(int i = 0; i < gameInput.getmHeroesNumber(); i++) {
+            fileWriter.writeWord(heroes[i].toString());
+            fileWriter.writeNewLine();
         }
     }
 
