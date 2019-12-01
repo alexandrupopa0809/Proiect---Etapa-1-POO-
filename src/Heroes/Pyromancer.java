@@ -2,33 +2,35 @@ package Heroes;
 
 import Constants.Constants;
 
-public class Pyromancer extends Hero {
+public final class Pyromancer extends Hero {
     public Pyromancer(final int rowPos, final int colPos) {
         super(rowPos, colPos);
-        this.hp = 500;
-        this.maxHp = 500;
+        this.hp = Constants.INITIAL_PYROMANCER_HP;
+        this.maxHp = Constants.INITIAL_PYROMANCER_HP;
     }
 
     @Override
-    public  void fightBack(Hero hero){
+    public void fightBack(final Hero hero) {
         hero.fightWith(this);
     }
 
     @Override
-    public void fightWith(Pyromancer pyroHero) {
-        float fireblastActiveDamage = 350 + 50 * this.level;
-        float igniteActiveDamage = 150 + 20 * this.level;
-        float igniteOvertimeDamage = 50 + 30 * this.level;
+    public void fightWith(final Pyromancer pyroHero) {
+        float fireblastActiveDamage = Constants.FIREBLAST_BASE_DAMAGE
+                + Constants.FIREBLAST_LEVEL_DAMAGE * this.level;
+        float igniteActiveDamage = Constants.IGNITE_BASE_DAMAGE
+                + Constants.IGNITE_LEVEL_BASE_DAMAGE * this.level;
+        float igniteOvertimeDamage = Constants.IGNITE_OVERTIME_DAMAGE
+                + Constants.IGNITE_LEVEL_DAMAGE * this.level;
 
         if (Map.getInstance().map[rowPos][colPos] == 'V') {
-            fireblastActiveDamage *=  Constants.PYROMAPMODIF;
-            igniteOvertimeDamage *= Constants.PYROMAPMODIF;
+            fireblastActiveDamage *=  Constants.PYRO_MAP_MODIF;
+            igniteOvertimeDamage *= Constants.PYRO_MAP_MODIF;
         }
 
-        final float pyromancerModifier = 0.9f;
-        fireblastActiveDamage *= pyromancerModifier;
-        igniteActiveDamage *= pyromancerModifier;
-        igniteOvertimeDamage *= pyromancerModifier;
+        fireblastActiveDamage *= Constants.PYROMANCER_MODIF;
+        igniteActiveDamage *= Constants.PYROMANCER_MODIF;
+        igniteOvertimeDamage *= Constants.PYROMANCER_MODIF;
 
         pyroHero.hp -= fireblastActiveDamage;
         pyroHero.hp -= igniteActiveDamage;
@@ -37,20 +39,22 @@ public class Pyromancer extends Hero {
     }
 
     @Override
-    public void fightWith(Rogue rogueHero) {
-        float fireblastActiveDamage = 350 + 50 * this.level;
-        float igniteActiveDamage = 150 + 20 * this.level;
-        float igniteOvertimeDamage = 50 + 30 * this.level;
+    public void fightWith(final Rogue rogueHero) {
+        float fireblastActiveDamage = Constants.FIREBLAST_BASE_DAMAGE
+                + Constants.FIREBLAST_LEVEL_DAMAGE * this.level;
+        float igniteActiveDamage = Constants.IGNITE_BASE_DAMAGE
+                + Constants.IGNITE_LEVEL_BASE_DAMAGE * this.level;
+        float igniteOvertimeDamage = Constants.IGNITE_OVERTIME_DAMAGE
+                + Constants.IGNITE_LEVEL_DAMAGE * this.level;
 
         if (Map.getInstance().map[rowPos][colPos] == 'V') {
-            fireblastActiveDamage *=  Constants.PYROMAPMODIF;
-            igniteOvertimeDamage *= Constants.PYROMAPMODIF;
+            fireblastActiveDamage *=  Constants.PYRO_MAP_MODIF;
+            igniteOvertimeDamage *= Constants.PYRO_MAP_MODIF;
         }
 
-        final float rogueModifier = 0.8f;
-        fireblastActiveDamage *= rogueModifier;
-        igniteActiveDamage *= rogueModifier;
-        igniteOvertimeDamage *= rogueModifier;
+        fireblastActiveDamage *= Constants.ROGUE_MODIF;
+        igniteActiveDamage *= Constants.ROGUE_MODIF;
+        igniteOvertimeDamage *= Constants.ROGUE_MODIF;
 
         rogueHero.hp -= fireblastActiveDamage;
         rogueHero.hp -= igniteActiveDamage;
@@ -59,20 +63,22 @@ public class Pyromancer extends Hero {
     }
 
     @Override
-    public void fightWith(Knight knightHero) {
-        float fireblastActiveDamage = 350 + 50 * this.level;
-        float igniteActiveDamage = 150 + 20 * this.level;
-        float igniteOvertimeDamage = 50 + 30 * this.level;
+    public void fightWith(final Knight knightHero) {
+        float fireblastActiveDamage = Constants.FIREBLAST_BASE_DAMAGE
+                + Constants.FIREBLAST_LEVEL_DAMAGE * this.level;
+        float igniteActiveDamage = Constants.IGNITE_BASE_DAMAGE
+                + Constants.IGNITE_LEVEL_BASE_DAMAGE * this.level;
+        float igniteOvertimeDamage = Constants.IGNITE_OVERTIME_DAMAGE
+                + Constants.IGNITE_LEVEL_DAMAGE * this.level;
 
         if (Map.getInstance().map[rowPos][colPos] == 'V') {
-            fireblastActiveDamage *=  Constants.PYROMAPMODIF;
-            igniteOvertimeDamage *= Constants.PYROMAPMODIF;
+            fireblastActiveDamage *=  Constants.PYRO_MAP_MODIF;
+            igniteOvertimeDamage *= Constants.PYRO_MAP_MODIF;
         }
 
-        final float knightModifier = 1.2f;
-        fireblastActiveDamage *= knightModifier;
-        igniteActiveDamage *= knightModifier;
-        igniteOvertimeDamage *= knightModifier;
+        fireblastActiveDamage *= Constants.KNIGHT_MODIF;
+        igniteActiveDamage *= Constants.KNIGHT_MODIF;
+        igniteOvertimeDamage *= Constants.KNIGHT_MODIF;
 
         knightHero.hp -= fireblastActiveDamage;
         knightHero.hp -= igniteActiveDamage;
@@ -81,20 +87,22 @@ public class Pyromancer extends Hero {
     }
 
     @Override
-    public void fightWith(Wizard wizardHero) {
-        float fireblastActiveDamage = 350 + 50 * this.level;
-        float igniteActiveDamage = 150 + 20 * this.level;
-        float igniteOvertimeDamage = 50 + 30 * this.level;
+    public void fightWith(final Wizard wizardHero) {
+        float fireblastActiveDamage = Constants.FIREBLAST_BASE_DAMAGE
+                + Constants.FIREBLAST_LEVEL_DAMAGE * this.level;
+        float igniteActiveDamage = Constants.IGNITE_BASE_DAMAGE
+                + Constants.IGNITE_LEVEL_BASE_DAMAGE * this.level;
+        float igniteOvertimeDamage = Constants.IGNITE_OVERTIME_DAMAGE
+                + Constants.IGNITE_LEVEL_DAMAGE * this.level;
 
         if (Map.getInstance().map[rowPos][colPos] == 'V') {
-            fireblastActiveDamage *=  Constants.PYROMAPMODIF;
-            igniteOvertimeDamage *= Constants.PYROMAPMODIF;
+            fireblastActiveDamage *=  Constants.PYRO_MAP_MODIF;
+            igniteOvertimeDamage *= Constants.PYRO_MAP_MODIF;
         }
 
-        final float wizardModifier = 1.05f;
-        fireblastActiveDamage *= wizardModifier;
-        igniteActiveDamage *= wizardModifier;
-        igniteOvertimeDamage *= wizardModifier;
+        fireblastActiveDamage *= Constants.WIZ_MODIF;
+        igniteActiveDamage *= Constants.WIZ_MODIF;
+        igniteOvertimeDamage *= Constants.WIZ_MODIF;
 
         wizardHero.hp -= fireblastActiveDamage;
         wizardHero.hp -= igniteActiveDamage;
@@ -105,7 +113,8 @@ public class Pyromancer extends Hero {
     @Override
     public String toString() {
         if (isAlive) {
-            return "P" + " " + this.level + " " + this.xp + " " +  this.hp + " " +  this.rowPos + " " + this.colPos;
+            return "P" + " " + this.level + " " + this.xp + " " +  this.hp
+                    + " " +  this.rowPos + " " + this.colPos;
         } else {
             return "P dead";
         }

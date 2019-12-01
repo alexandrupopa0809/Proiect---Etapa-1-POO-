@@ -2,159 +2,164 @@ package Heroes;
 
 import Constants.Constants;
 
-public class Rogue extends Hero {
-    public int backstabAttacks;
-    public Rogue(int row, int col) {
+public final class Rogue extends Hero {
+    int backstabAttacks;
+
+    public Rogue(final int row, final int col) {
         super(row, col);
-        this.hp = 600;
-        this.maxHp = 600;
+        this.hp = Constants.INITIAL_ROGUE_HP;
+        this.maxHp = Constants.INITIAL_ROGUE_HP;
         backstabAttacks = 0;
     }
 
     @Override
-    public void fightBack(Hero hero) {
+    public void fightBack(final Hero hero) {
         hero.fightWith(this);
     }
 
     @Override
-    public void fightWith(Rogue rogueHero) {
-        float backstabActiveDamage = Constants.backstabBaseDamage +
-                Constants.backstabLevelDamage * this.level;
-        if (backstabAttacks % 3 == 0) {
-            if(Map.getInstance().map[rowPos][colPos] == 'W') {
-                backstabActiveDamage *= Constants.backstabAmplifier;
+    public void fightWith(final Rogue rogueHero) {
+        float backstabActiveDamage = Constants.BACKSTAB_BASE_DAMAGE
+                + Constants.BACKSTAB_LEVEL_DAMAGE * this.level;
+        if (backstabAttacks % Constants.BACKSTABBS_DIVIDER == 0) {
+            if (Map.getInstance().map[rowPos][colPos] == 'W') {
+                backstabActiveDamage *= Constants.BACKSTAB_AMPLIFIER;
             }
         }
         //incrementez atacurile pentru a vedea cand rogue va da critical hit
         backstabAttacks++;
-        float paralysisActiveDamage = Constants.paralysisBaseDamage +
-                Constants.paralysisLevelDamage * this.level;
-        float paralysisOvertimeDamage = Constants.paralysisBaseDamage +
-                Constants.paralysisLevelDamage * this.level;
-        int rounds = 3;
-        if(Map.getInstance().map[rowPos][colPos] == 'W') {
-            rounds = 6;
+        float paralysisActiveDamage = Constants.PARALYSIS_BASE_DAMAGE
+                + Constants.PARALYSIS_LEVEL_DAMAGE * this.level;
+        float paralysisOvertimeDamage = Constants.PARALYSIS_BASE_DAMAGE
+                + Constants.PARALYSIS_LEVEL_DAMAGE * this.level;
+        int rounds = Constants.ROUNDS_NORMAL;
+        if (Map.getInstance().map[rowPos][colPos] == 'W') {
+            rounds = Constants.ROUNDS_MAX;
         }
         if (Map.getInstance().map[rowPos][colPos] == 'W') {
-            backstabActiveDamage *= Constants.rogueMapModif;
-            paralysisActiveDamage *= Constants.rogueMapModif;
-            paralysisOvertimeDamage *= Constants.rogueMapModif;
+            backstabActiveDamage *= Constants.ROGUE_MAP_MODIF;
+            paralysisActiveDamage *= Constants.ROGUE_MAP_MODIF;
+            paralysisOvertimeDamage *= Constants.ROGUE_MAP_MODIF;
         }
 
-        backstabActiveDamage *= Constants.rogueModifBackstab;
-        paralysisActiveDamage *= Constants.rogueModifParal;
-        paralysisOvertimeDamage *= Constants.rogueModifParal;
+        backstabActiveDamage *= Constants.ROGUE_MODIF_BACKSTAB;
+        paralysisActiveDamage *= Constants.ROGUE_MODIF_PARAL;
+        paralysisOvertimeDamage *= Constants.ROGUE_MODIF_PARAL;
 
-        float totalActiveDamage = Math.round(backstabActiveDamage) +
-                Math.round(paralysisActiveDamage);
+        float totalActiveDamage = Math.round(backstabActiveDamage)
+                + Math.round(paralysisActiveDamage);
         rogueHero.getActiveDamage(Math.round(totalActiveDamage));
         rogueHero.overtimeDamage = Math.round(paralysisOvertimeDamage);
         rogueHero.damageOvertimeRounds = rounds;
     }
 
     @Override
-    public void fightWith(Knight knightHero) {
-        float backstabActiveDamage = Constants.backstabBaseDamage +
-                Constants.backstabLevelDamage * this.level;
-        if (backstabAttacks % 3 == 0) {
-            if(Map.getInstance().map[rowPos][colPos] == 'W') {
-                backstabActiveDamage *= Constants.backstabAmplifier;
+    public void fightWith(final Knight knightHero) {
+        float backstabActiveDamage = Constants.BACKSTAB_BASE_DAMAGE
+                + Constants.BACKSTAB_LEVEL_DAMAGE * this.level;
+        if (backstabAttacks % Constants.BACKSTABBS_DIVIDER == 0) {
+            if (Map.getInstance().map[rowPos][colPos] == 'W') {
+                backstabActiveDamage *= Constants.BACKSTAB_AMPLIFIER;
             }
         }
         //incrementez atacurile pentru a vedea cand rogue va da critical hit
         backstabAttacks++;
-        float paralysisActiveDamage = Constants.paralysisBaseDamage +
-                Constants.paralysisLevelDamage * this.level;
-        float paralysisOvertimeDamage = Constants.paralysisBaseDamage +
-                Constants.paralysisLevelDamage * this.level;
-        int rounds = 3;
-        if(Map.getInstance().map[rowPos][colPos] == 'W') {
-            rounds = 6;
+
+        float paralysisActiveDamage = Constants.PARALYSIS_BASE_DAMAGE
+                + Constants.PARALYSIS_LEVEL_DAMAGE * this.level;
+        float paralysisOvertimeDamage = Constants.PARALYSIS_BASE_DAMAGE
+                + Constants.PARALYSIS_LEVEL_DAMAGE * this.level;
+
+        int rounds = Constants.ROUNDS_NORMAL;
+        if (Map.getInstance().map[rowPos][colPos] == 'W') {
+            rounds = Constants.ROUNDS_MAX;
         }
         if (Map.getInstance().map[rowPos][colPos] == 'W') {
-            backstabActiveDamage *= Constants.rogueMapModif;
-            paralysisActiveDamage *= Constants.rogueMapModif;
-            paralysisOvertimeDamage *= Constants.rogueMapModif;
+            backstabActiveDamage *= Constants.ROGUE_MAP_MODIF;
+            paralysisActiveDamage *= Constants.ROGUE_MAP_MODIF;
+            paralysisOvertimeDamage *= Constants.ROGUE_MAP_MODIF;
         }
 
-        backstabActiveDamage *= Constants.knightModifBackstab;
-        paralysisActiveDamage *= Constants.knightModifParal;
-        paralysisOvertimeDamage *= Constants.knightModifParal;
+        backstabActiveDamage *= Constants.KNIGHT_MODIF_BACKSTAB;
+        paralysisActiveDamage *= Constants.KNIGHT_MODIF_PARAL;
+        paralysisOvertimeDamage *= Constants.KNIGHT_MODIF_PARAL;
 
-        float totalActiveDamage = Math.round(backstabActiveDamage) +
-                Math.round(paralysisActiveDamage);
+        float totalActiveDamage = Math.round(backstabActiveDamage)
+                + Math.round(paralysisActiveDamage);
         knightHero.getActiveDamage(Math.round(totalActiveDamage));
         knightHero.overtimeDamage = Math.round(paralysisOvertimeDamage);
         knightHero.damageOvertimeRounds = rounds;
     }
 
     @Override
-    public void fightWith(Wizard wizardHero) {
-        float backstabActiveDamage = Constants.backstabBaseDamage +
-                Constants.backstabLevelDamage * this.level;
-        if (backstabAttacks % 3 == 0) {
-            if(Map.getInstance().map[rowPos][colPos] == 'W') {
-                backstabActiveDamage *= Constants.backstabAmplifier;
+    public void fightWith(final Wizard wizardHero) {
+        float backstabActiveDamage = Constants.BACKSTAB_BASE_DAMAGE
+                + Constants.BACKSTAB_LEVEL_DAMAGE * this.level;
+        if (backstabAttacks % Constants.BACKSTABBS_DIVIDER == 0) {
+            if (Map.getInstance().map[rowPos][colPos] == 'W') {
+                backstabActiveDamage *= Constants.BACKSTAB_AMPLIFIER;
             }
         }
         //incrementez atacurile pentru a vedea cand rogue va da critical hit
         backstabAttacks++;
-        float paralysisActiveDamage = Constants.paralysisBaseDamage +
-                Constants.paralysisLevelDamage * this.level;
-        float paralysisOvertimeDamage = Constants.paralysisBaseDamage +
-                Constants.paralysisLevelDamage * this.level;
-        int rounds = 3;
-        if(Map.getInstance().map[rowPos][colPos] == 'W') {
-            rounds = 6;
+        float paralysisActiveDamage = Constants.PARALYSIS_BASE_DAMAGE
+                + Constants.PARALYSIS_LEVEL_DAMAGE * this.level;
+        float paralysisOvertimeDamage = Constants.PARALYSIS_BASE_DAMAGE
+                + Constants.PARALYSIS_LEVEL_DAMAGE * this.level;
+        int rounds = Constants.ROUNDS_NORMAL;
+        if (Map.getInstance().map[rowPos][colPos] == 'W') {
+            rounds = Constants.ROUNDS_MAX;
         }
         if (Map.getInstance().map[rowPos][colPos] == 'W') {
-            backstabActiveDamage *= Constants.rogueMapModif;
-            paralysisActiveDamage *= Constants.rogueMapModif;
-            paralysisOvertimeDamage *= Constants.rogueMapModif;
+            backstabActiveDamage *= Constants.ROGUE_MAP_MODIF;
+            paralysisActiveDamage *= Constants.ROGUE_MAP_MODIF;
+            paralysisOvertimeDamage *= Constants.ROGUE_MAP_MODIF;
         }
 
-        backstabActiveDamage *= Constants.wizardModifBackstab;
-        paralysisActiveDamage *= Constants.wizardModifParal;
-        paralysisOvertimeDamage *= Constants.wizardModifParal;
+        backstabActiveDamage *= Constants.WIZARD_MODIF_BACKSTAB;
+        paralysisActiveDamage *= Constants.WIZARD_MODIF_PARAL;
+        paralysisOvertimeDamage *= Constants.WIZARD_MODIF_PARAL;
 
-        float totalActiveDamage = Math.round(backstabActiveDamage) +
-                Math.round(paralysisActiveDamage);
+        float totalActiveDamage = Math.round(backstabActiveDamage)
+                + Math.round(paralysisActiveDamage);
         wizardHero.getActiveDamage(Math.round(totalActiveDamage));
         wizardHero.overtimeDamage = Math.round(paralysisOvertimeDamage);
         wizardHero.damageOvertimeRounds = rounds;
     }
 
     @Override
-    public void fightWith(Pyromancer pyroHero) {
-        float backstabActiveDamage = Constants.backstabBaseDamage +
-                Constants.backstabLevelDamage * this.level;
-        if (backstabAttacks % 3 == 0) {
-            if(Map.getInstance().map[rowPos][colPos] == 'W') {
-                backstabActiveDamage *= Constants.backstabAmplifier;
+    public void fightWith(final Pyromancer pyroHero) {
+        float backstabActiveDamage = Constants.BACKSTAB_BASE_DAMAGE
+                + Constants.BACKSTAB_LEVEL_DAMAGE * this.level;
+        if (backstabAttacks % Constants.BACKSTABBS_DIVIDER == 0) {
+            if (Map.getInstance().map[rowPos][colPos] == 'W') {
+                backstabActiveDamage *= Constants.BACKSTAB_AMPLIFIER;
             }
         }
         //incrementez atacurile pentru a vedea cand rogue va da critical hit
         backstabAttacks++;
-        float paralysisActiveDamage = Constants.paralysisBaseDamage +
-                Constants.paralysisLevelDamage * this.level;
-        float paralysisOvertimeDamage = Constants.paralysisBaseDamage +
-                Constants.paralysisLevelDamage * this.level;
-        int rounds = 3;
-        if(Map.getInstance().map[rowPos][colPos] == 'W') {
-            rounds = 6;
+
+        float paralysisActiveDamage = Constants.PARALYSIS_BASE_DAMAGE
+                + Constants.PARALYSIS_LEVEL_DAMAGE * this.level;
+        float paralysisOvertimeDamage = Constants.PARALYSIS_BASE_DAMAGE
+                + Constants.PARALYSIS_LEVEL_DAMAGE * this.level;
+
+        int rounds = Constants.ROUNDS_NORMAL;
+        if (Map.getInstance().map[rowPos][colPos] == 'W') {
+            rounds = Constants.ROUNDS_MAX;
         }
         if (Map.getInstance().map[rowPos][colPos] == 'W') {
-            backstabActiveDamage *= Constants.rogueMapModif;
-            paralysisActiveDamage *= Constants.rogueMapModif;
-            paralysisOvertimeDamage *= Constants.rogueMapModif;
+            backstabActiveDamage *= Constants.ROGUE_MAP_MODIF;
+            paralysisActiveDamage *= Constants.ROGUE_MAP_MODIF;
+            paralysisOvertimeDamage *= Constants.ROGUE_MAP_MODIF;
         }
 
-        backstabActiveDamage *= Constants.pyroModifBackstab;
-        paralysisActiveDamage *= Constants.pyroModifParal;
-        paralysisOvertimeDamage *= Constants.pyroModifParal;
+        backstabActiveDamage *= Constants.PYRO_MODIF_BACKSTAB;
+        paralysisActiveDamage *= Constants.PYRO_MODIF_PARAL;
+        paralysisOvertimeDamage *= Constants.PYRO_MODIF_PARAL;
 
-        float totalActiveDamage = Math.round(backstabActiveDamage) +
-                Math.round(paralysisActiveDamage);
+        float totalActiveDamage = Math.round(backstabActiveDamage)
+                + Math.round(paralysisActiveDamage);
         pyroHero.getActiveDamage(Math.round(totalActiveDamage));
         pyroHero.overtimeDamage = Math.round(paralysisOvertimeDamage);
         pyroHero.damageOvertimeRounds = rounds;
@@ -163,7 +168,8 @@ public class Rogue extends Hero {
     @Override
     public String toString() {
         if (isAlive) {
-            return "R" + " " + this.level + " " + this.xp + " " +  this.hp + " " +  this.rowPos + " " + this.colPos;
+            return "R" + " " + this.level + " " + this.xp + " " +  this.hp
+                    + " " +  this.rowPos + " " + this.colPos;
         } else {
             return "R dead";
         }

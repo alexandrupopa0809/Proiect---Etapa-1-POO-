@@ -4,7 +4,7 @@ import fileio.FileSystem;
 
 import java.io.IOException;
 
-public class Map {
+public final class Map {
     public char[][] map;
     private static Map instance = null;
     private Map() {
@@ -17,7 +17,7 @@ public class Map {
         return instance;
     }
 
-    public void load(FileSystem fs) throws IOException {
+    public void load(final FileSystem fs) throws IOException {
         int row = fs.nextInt();
         int col = fs.nextInt();
         map = new char[row][col];

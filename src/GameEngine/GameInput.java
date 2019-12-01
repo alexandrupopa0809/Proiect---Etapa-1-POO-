@@ -1,20 +1,18 @@
 package GameEngine;
 
 import Heroes.Hero;
-//import com.Heroes.Hero;
 
-
-public class GameInput {
-    //private final int mRow;
-    //private final int mCol;private final char[][] mMap;
+public final class GameInput {
+    //numarul de eroi
     private final int mHeroesNumber;
+    //eroii
     private final Hero[] mHeroes;
+    //numarul de runde
     private final int mRoundsNumber;
 
     public GameInput() {
         mRoundsNumber = 0;
         mHeroesNumber = 0;
-        //mMap = null;
         mHeroes = null;
     }
 

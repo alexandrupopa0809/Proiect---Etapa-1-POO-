@@ -1,0 +1,27 @@
+Popa Alexandru-Matei
+321CD
+
+    Luand ca exemplu scheletul din tema trecuta, am facut citirea cu ajutorul
+claselor GameInput si GameInputLoader. Pentru a fi in avantajul meu,
+mi-am creat o instanta singleton pentru harta, de care ma folosesc in intreg
+poiectul. De asemenea am facut un factory pentru eroi. Astfel imi accesez
+pozitiile eroilor mai usor.
+
+    In clasa Hero mi-am facut 4 metode de tip "interactWith" care se numesc
+fightWith si reprezinta cu cine se lupta eroul respectiv in functie de
+adversar + o metoda de tip "accept" (dupa cum se sugereaza in tutorialul
+de pe elf.cs.pub), care se numeste "fightBack", care il face pe jucatorul
+atacat, sa atace inapoi. Astfel, am suprascris aceste 5 metode
+in clasele specifice fiecarui erou, care extind clasa de baza "Hero".
+In fiecare metoda suprascrisa din fiecare clasa ce extinde clasa de baza
+se intampla lucrul urmator: jucatorul dat ca parametru este atacat, calculandu-se
+damage-ul primit instant si damage-ul primit pe parcursul mai multor runde,
+daca este necesar. Apoi in metoda fightBack specifica fiecarei clase,
+este apelata metoda fightWith, ce trigger-uiste jucatorul atacat initial,
+sa atace la randul lui.
+
+    In clasa Round am mutat toti jucatorii, dupa care, daca se afla in
+acelasi loc pe harta, se lupta si se verifica cine ramane in viata. In
+clasa Game iterez prin numarul de runde si apelez ce rezulta din luptele
+eroilor. In Main doar apelez metoda startGame, de inceperea a jocului si
+o metoda care ma ajuta sa fac citirea.

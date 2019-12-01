@@ -1,6 +1,7 @@
 package GameEngine;
 
-import Heroes.*;
+import Heroes.Hero;
+import Heroes.Map;
 import fileio.FileSystem;
 
 public final class GameInputLoader {
@@ -18,7 +19,6 @@ public final class GameInputLoader {
         int noHeroes = 0;
         int row = 0;
         int col = 0;
-        //char[][] map = new char[row][col];
 
         try {
             FileSystem fs = new FileSystem(mInputPath, mOutputPath);
@@ -29,7 +29,8 @@ public final class GameInputLoader {
             heroes = new Hero[noHeroes];
 
             for (int i = 0; i < noHeroes; i++) {
-                heroes[i] = HeroesFactory.createHero(fs.nextWord().charAt(0), fs.nextInt(), fs.nextInt());
+                heroes[i] = HeroesFactory.createHero(fs.nextWord().charAt(0),
+                        fs.nextInt(), fs.nextInt());
             }
 
             noRounds = fs.nextInt();

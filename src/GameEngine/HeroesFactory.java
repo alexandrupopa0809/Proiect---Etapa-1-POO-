@@ -1,15 +1,20 @@
 package GameEngine;
 
-import Heroes.*;
+import Heroes.Hero;
+import Heroes.Wizard;
+import Heroes.Pyromancer;
+import Heroes.Rogue;
+import Heroes.Knight;
 
-public class HeroesFactory {
+public final class HeroesFactory {
 
     private HeroesFactory() {
 
     }
 
-    public static Hero createHero(char heroName, int rowPos, int colPos) {
-        switch(heroName) {
+    public static Hero createHero(final char heroName, final int rowPos,
+                                  final int colPos) {
+        switch (heroName) {
             case 'W' : return new Wizard(rowPos, colPos);
             case 'P' : return new Pyromancer(rowPos, colPos);
             case 'R' : return new Rogue(rowPos, colPos);

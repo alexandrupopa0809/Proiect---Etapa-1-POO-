@@ -2,49 +2,45 @@ package Heroes;
 
 import Constants.Constants;
 
-public class Knight extends Hero {
-    public Knight(int row, int col) {
+public final class Knight extends Hero {
+    public Knight(final int row, final int col) {
         super(row, col);
-        this.hp = 900;
-        this.maxHp = 900;
+        this.hp = Constants.INITIAL_KNIGHT_HP;
+        this.maxHp = Constants.INITIAL_KNIGHT_HP;
     }
 
     @Override
-    public void fightBack(Hero hero) {
+    public void fightBack(final Hero hero) {
         hero.fightWith(this);
     }
 
     @Override
-    public void fightWith(Pyromancer pyroHero) {
-        final float hpLimitCoef = 0.2f;
-        float hpLimit = hpLimitCoef * pyroHero.maxHp;
+    public void fightWith(final Pyromancer pyroHero) {
+        float hpLimit = Constants.HP_LIMIT_COEF * pyroHero.maxHp;
         float executeActiveDamage = 0;
-        float slamActiveDamage = 100;
+        float slamActiveDamage = Constants.SLAM_BASE_DAMAGE;
         float totalActiveDamage;
 
-        if (this.level < 40) {
-            hpLimit += ((float) this.level/100) * pyroHero.maxHp;
+        if (this.level < Constants.LEVEL_LIMIT) {
+            hpLimit += ((float) this.level / Constants.PERCENT) * pyroHero.maxHp;
+        } else {
+            hpLimit += Constants.KNIGHT_MAX_LEVEL_COEF * pyroHero.maxHp;
         }
-        else {
-            hpLimit += 0.4f * pyroHero.maxHp;
-        }
-
         if ((float) pyroHero.hp < hpLimit && pyroHero.hp > 0) {
             executeActiveDamage = pyroHero.hp;
-            pyroHero.getActiveDamage((int)Math.round(executeActiveDamage));
-        }
-        else {
-            executeActiveDamage = 200;
-            executeActiveDamage += 30 * this.level;
-            slamActiveDamage += 40 * this.level;
+            pyroHero.getActiveDamage(Math.round(executeActiveDamage));
+        } else {
+            executeActiveDamage = Constants.EXECUTE_BASE_DAMAGE;
+            executeActiveDamage += Constants.EXECUTE_LEVEL_DAMAGE * this.level;
+            slamActiveDamage += Constants.SLAM_LEVEL_DAMAGE * this.level;
 
             if (Map.getInstance().map[rowPos][colPos] == 'L') {
-                executeActiveDamage *= Constants.knightMapModif;
-                slamActiveDamage *= Constants.knightMapModif;
+                executeActiveDamage *= Constants.KNIGHT_MAP_MODIF;
+                slamActiveDamage *= Constants.KNIGHT_MAP_MODIF;
             }
 
-            executeActiveDamage *= Constants.pyroModifExecute;
-            slamActiveDamage *= Constants.pyroModifSlam;
+            executeActiveDamage *= Constants.PYRO_MODIF_EXECUTE;
+            slamActiveDamage *= Constants.PYRO_MODIF_SLAM;
 
             totalActiveDamage = slamActiveDamage + executeActiveDamage;
 
@@ -54,76 +50,68 @@ public class Knight extends Hero {
     }
 
     @Override
-    public void fightWith(Wizard wizardHero) {
-        final float hpLimitCoef = 0.2f;
-        float hpLimit = hpLimitCoef * wizardHero.maxHp;
+    public void fightWith(final Wizard wizardHero) {
+        float hpLimit = Constants.HP_LIMIT_COEF * wizardHero.maxHp;
         float executeActiveDamage = 0;
-        float slamActiveDamage = 100;
+        float slamActiveDamage = Constants.SLAM_BASE_DAMAGE;
         float totalActiveDamage;
 
-        if (this.level < 40) {
-            hpLimit += ((float) this.level/100) * wizardHero.maxHp;
+        if (this.level < Constants.LEVEL_LIMIT) {
+            hpLimit += ((float) this.level / Constants.PERCENT) * wizardHero.maxHp;
+        } else {
+            hpLimit += Constants.KNIGHT_MAX_LEVEL_COEF * wizardHero.maxHp;
         }
-        else {
-            hpLimit += 0.4f * wizardHero.maxHp;
-        }
-
         if ((float) wizardHero.hp < hpLimit && wizardHero.hp > 0) {
             executeActiveDamage = wizardHero.hp;
-            wizardHero.getActiveDamage((int)Math.round(executeActiveDamage));
-        }
-        else {
-            executeActiveDamage = 200;
-            executeActiveDamage += 30 * this.level;
-            slamActiveDamage += 40 * this.level;
+            wizardHero.getActiveDamage(Math.round(executeActiveDamage));
+        } else {
+            executeActiveDamage = Constants.EXECUTE_BASE_DAMAGE;
+            executeActiveDamage += Constants.EXECUTE_LEVEL_DAMAGE * this.level;
+            slamActiveDamage += Constants.SLAM_LEVEL_DAMAGE * this.level;
 
             if (Map.getInstance().map[rowPos][colPos] == 'L') {
-                executeActiveDamage *= Constants.knightMapModif;
-                slamActiveDamage *= Constants.knightMapModif;
+                executeActiveDamage *= Constants.KNIGHT_MAP_MODIF;
+                slamActiveDamage *= Constants.KNIGHT_MAP_MODIF;
             }
 
-            executeActiveDamage *= Constants.wizardModifExecute;
-            slamActiveDamage *= Constants.wizardModifSlam;
+            executeActiveDamage *= Constants.WIZARD_MODIF_EXECUTE;
+            slamActiveDamage *= Constants.WIZARD_MODIF_SLAM;
 
             totalActiveDamage = slamActiveDamage + executeActiveDamage;
 
-            wizardHero.getActiveDamage((int) Math.round(totalActiveDamage));
+            wizardHero.getActiveDamage(Math.round(totalActiveDamage));
             wizardHero.imobilized = 1;
         }
 
     }
 
     @Override
-    public void fightWith(Knight knightHero) {
-        final float hpLimitCoef = 0.2f;
-        float hpLimit = hpLimitCoef * knightHero.maxHp;
+    public void fightWith(final Knight knightHero) {
+        float hpLimit = Constants.HP_LIMIT_COEF * knightHero.maxHp;
         float executeActiveDamage = 0;
-        float slamActiveDamage = 100;
+        float slamActiveDamage = Constants.SLAM_BASE_DAMAGE;
         float totalActiveDamage;
 
-        if (this.level < 40) {
-            hpLimit += ((float) this.level/100) * knightHero.maxHp;
+        if (this.level < Constants.LEVEL_LIMIT) {
+            hpLimit += ((float) this.level / Constants.PERCENT) * knightHero.maxHp;
+        } else {
+            hpLimit += Constants.KNIGHT_MAX_LEVEL_COEF * knightHero.maxHp;
         }
-        else {
-            hpLimit += 0.4f * knightHero.maxHp;
-        }
-
         if ((float) knightHero.hp < hpLimit && knightHero.hp > 0) {
             executeActiveDamage = knightHero.hp;
-            knightHero.getActiveDamage((int)Math.round(executeActiveDamage));
-        }
-        else {
-            executeActiveDamage = 200;
-            executeActiveDamage += 30 * this.level;
-            slamActiveDamage += 40 * this.level;
+            knightHero.getActiveDamage(Math.round(executeActiveDamage));
+        } else {
+            executeActiveDamage = Constants.EXECUTE_BASE_DAMAGE;
+            executeActiveDamage += Constants.EXECUTE_LEVEL_DAMAGE * this.level;
+            slamActiveDamage += Constants.SLAM_LEVEL_DAMAGE * this.level;
 
             if (Map.getInstance().map[rowPos][colPos] == 'L') {
-                executeActiveDamage *= Constants.knightMapModif;
-                slamActiveDamage *= Constants.knightMapModif;
+                executeActiveDamage *= Constants.KNIGHT_MAP_MODIF;
+                slamActiveDamage *= Constants.KNIGHT_MAP_MODIF;
             }
 
-            executeActiveDamage *= Constants.knightModifExecute;
-            slamActiveDamage *= Constants.knightModifSlam;
+            executeActiveDamage *= Constants.KNIGHT_MODIF_EXECUTE;
+            slamActiveDamage *= Constants.KNIGHT_MODIF_SLAM;
 
             totalActiveDamage = slamActiveDamage + executeActiveDamage;
 
@@ -134,36 +122,32 @@ public class Knight extends Hero {
     }
 
     @Override
-    public void fightWith(Rogue rogueHero) {
-        final float hpLimitCoef = 0.2f;
-        float hpLimit = hpLimitCoef * rogueHero.maxHp;
+    public void fightWith(final Rogue rogueHero) {
+        float hpLimit = Constants.HP_LIMIT_COEF * rogueHero.maxHp;
         float executeActiveDamage = 0;
-        float slamActiveDamage = 100;
+        float slamActiveDamage = Constants.SLAM_BASE_DAMAGE;
         float totalActiveDamage;
 
-        if (this.level < 40) {
-            hpLimit += ((float) this.level/100) * rogueHero.maxHp;
+        if (this.level < Constants.LEVEL_LIMIT) {
+            hpLimit += ((float) this.level / Constants.PERCENT) * rogueHero.maxHp;
+        } else {
+            hpLimit += Constants.KNIGHT_MAX_LEVEL_COEF * rogueHero.maxHp;
         }
-        else {
-            hpLimit += 0.4f * rogueHero.maxHp;
-        }
-
         if ((float) rogueHero.hp < hpLimit && rogueHero.hp > 0) {
             executeActiveDamage = rogueHero.hp;
-            rogueHero.getActiveDamage((int)Math.round(executeActiveDamage));
-        }
-        else {
-            executeActiveDamage = 200;
-            executeActiveDamage += 30 * this.level;
-            slamActiveDamage += 40 * this.level;
+            rogueHero.getActiveDamage(Math.round(executeActiveDamage));
+        } else {
+            executeActiveDamage = Constants.EXECUTE_BASE_DAMAGE;
+            executeActiveDamage += Constants.EXECUTE_LEVEL_DAMAGE * this.level;
+            slamActiveDamage += Constants.SLAM_LEVEL_DAMAGE * this.level;
 
             if (Map.getInstance().map[rowPos][colPos] == 'L') {
-                executeActiveDamage *= Constants.knightMapModif;
-                slamActiveDamage *= Constants.knightMapModif;
+                executeActiveDamage *= Constants.KNIGHT_MAP_MODIF;
+                slamActiveDamage *= Constants.KNIGHT_MAP_MODIF;
             }
 
-            executeActiveDamage *= Constants.rogueModifExecute;
-            slamActiveDamage *= Constants.rogueMofifSlam;
+            executeActiveDamage *= Constants.ROGUE_MODIF_EXECUTE;
+            slamActiveDamage *= Constants.ROGUE_MOFIF_SLAM;
 
             totalActiveDamage = slamActiveDamage + executeActiveDamage;
 
@@ -175,7 +159,8 @@ public class Knight extends Hero {
     @Override
     public String toString() {
         if (isAlive) {
-            return "K" + " " + this.level + " " + this.xp + " " +  this.hp + " " +  this.rowPos + " " + this.colPos;
+            return "K" + " " + this.level + " " + this.xp + " " +  this.hp
+                    + " " +  this.rowPos + " " + this.colPos;
         } else {
             return "K dead";
         }
