@@ -44,7 +44,7 @@ public final class Knight extends Hero {
 
             totalActiveDamage = slamActiveDamage + executeActiveDamage;
 
-            pyroHero.getActiveDamage((int) Math.round(totalActiveDamage));
+            pyroHero.getActiveDamage(Math.round(totalActiveDamage));
             pyroHero.imobilized = 1;
         }
     }

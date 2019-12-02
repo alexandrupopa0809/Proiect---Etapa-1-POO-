@@ -110,9 +110,9 @@ public final class Wizard extends Hero {
             knightHeroDamage = this.hp;
             isExecuted = 1;
         } else {
-            knightHeroDamage = Constants.EXECUTE_BASE_DAMAGE
-                    + Constants.EXECUTE_LEVEL_DAMAGE * this.level;
-            knightHeroDamage = Constants.SLAM_BASE_DAMAGE + Constants.SLAM_LEVEL_DAMAGE;
+             knightHeroDamage = Constants.SLAM_BASE_DAMAGE
+                     + Constants.SLAM_LEVEL_DAMAGE * this.level
+                    + Constants.EXECUTE_BASE_DAMAGE + Constants.EXECUTE_LEVEL_DAMAGE * this.level;
         }
         if (Map.getInstance().map[knightHero.rowPos][knightHero.colPos] == 'L'
                 && isExecuted == 0) {
@@ -152,14 +152,15 @@ public final class Wizard extends Hero {
         }
 
         rogueHeroDamage = Constants.BACKSTAB_BASE_DAMAGE
-                + Constants.BACKSTAB_LEVEL_DAMAGE * rogueHero.level;
-        if (Map.getInstance().map[rogueHero.rowPos][rogueHero.colPos] == 'W'
-                && ((rogueHero).backstabAttacks - 1)
-                % Constants.BACKSTABBS_DIVIDER == 0) {
+                + Constants.BACKSTAB_LEVEL_DAMAGE * this.level;
+
+        if ((Map.getInstance().map[rogueHero.rowPos][rogueHero.colPos] == 'W')
+                && (rogueHero.backstabAttacks
+                % Constants.BACKSTABBS_DIVIDER == 0)) {
             rogueHeroDamage *= Constants.BACKSTAB_AMPLIFIER;
         }
         rogueHeroDamage = Constants.PARALYSIS_BASE_DAMAGE
-                + Constants.PARALYSIS_LEVEL_DAMAGE * rogueHero.level;
+                + Constants.PARALYSIS_LEVEL_DAMAGE * this.level;
         if (Map.getInstance().map[rogueHero.rowPos][rogueHero.colPos] == 'W') {
             rogueHeroDamage *= Constants.ROGUE_MAP_MODIF;
         }

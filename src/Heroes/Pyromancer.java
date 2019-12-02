@@ -36,6 +36,7 @@ public final class Pyromancer extends Hero {
         pyroHero.hp -= igniteActiveDamage;
         pyroHero.overtimeDamage = igniteOvertimeDamage;
         pyroHero.damageOvertimeRounds = 2;
+        pyroHero.takeOvertimeDamage();
     }
 
     @Override
@@ -60,6 +61,7 @@ public final class Pyromancer extends Hero {
         rogueHero.hp -= igniteActiveDamage;
         rogueHero.overtimeDamage = igniteOvertimeDamage;
         rogueHero.damageOvertimeRounds = 2;
+        rogueHero.takeOvertimeDamage();
     }
 
     @Override
@@ -84,6 +86,7 @@ public final class Pyromancer extends Hero {
         knightHero.hp -= igniteActiveDamage;
         knightHero.overtimeDamage = igniteOvertimeDamage;
         knightHero.damageOvertimeRounds = 2;
+        knightHero.takeOvertimeDamage();
     }
 
     @Override
@@ -108,6 +111,7 @@ public final class Pyromancer extends Hero {
         wizardHero.hp -= igniteActiveDamage;
         wizardHero.overtimeDamage = igniteOvertimeDamage;
         wizardHero.damageOvertimeRounds = 2;
+        wizardHero.takeOvertimeDamage();
     }
 
     @Override

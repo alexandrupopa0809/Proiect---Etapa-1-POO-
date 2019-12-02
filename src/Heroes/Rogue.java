@@ -122,9 +122,10 @@ public final class Rogue extends Hero {
 
         float totalActiveDamage = Math.round(backstabActiveDamage)
                 + Math.round(paralysisActiveDamage);
-        wizardHero.getActiveDamage(Math.round(totalActiveDamage));
+        wizardHero.hp -= totalActiveDamage;
         wizardHero.overtimeDamage = Math.round(paralysisOvertimeDamage);
         wizardHero.damageOvertimeRounds = rounds;
+        wizardHero.takeOvertimeDamage();
     }
 
     @Override
